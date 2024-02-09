@@ -13,12 +13,13 @@ import pygame
 from pygame.display import get_window_size as screen_size
 from map_handler import map
 import event_handler
-
+import threading
 
     
 def init():
     # convert the surfaces for adjusting their alpha values
     for surface in all: surface = surface.s.convert()
+    clear()
     
 def clear(): 
     # fill the surfaces in one color
@@ -97,17 +98,25 @@ class scaled_map:
     s = pygame.Surface((0,0))
     surf_cache = {}
     
-    # loading the differently scaled surfaces into a cache
-    def load_cache(): 
-        progress = 0
-        items = len(scaled_map.zoom_steps)
-        print(f"\033[92m {'precalculating surfaces'}\033[00m")
+    # cache loading function using threading
+    # by using threads, the loading time of the Bad Mergentheim Map was reduced by 45% (7.5s -> 4.1s on the Heitec laptops)
+    def load_cache(progress_surface: pygame.Surface):
+        threads = []
         for i in scaled_map.zoom_steps:
-            size = map.width*i
-            scaled_map.surf_cache[str(i)] = pygame.transform.smoothscale(original_map.s.copy(), (size,size))
-            progress += 1
-            print(f"\033[92m {'-'*progress}\033[00m", end = "")
-            print(f"\033[91m {'·'*(items-progress)}\033[00m")
+            thread = threading.Thread(target=scaled_map.cache_thread_process, args=(original_map.s, i, progress_surface))
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
+    def cache_thread_process(image, i, progress_surface):
+        size = map.width*i
+        scaled_image = pygame.transform.smoothscale(image.copy(), (size,size))
+        scaled_map.surf_cache[str(i)] = scaled_image
+        # update the loading screen
+        loading_surface.current_step += 1
+        pygame.event.get()
+        loading_surface.update(progress_surface, progressbar=True)
+        pygame.display.flip()
         
     # function to adjust the size of the surface and blitting the tiles for the first time 
     # to prevent a empty surface on start
@@ -146,6 +155,32 @@ class scaled_map:
         x = min(maxOffsetMovingToRight, max(scaled_map.pos[0], maxOffsetMovingToLeft))
         y = min(maxOffsetMovingDown, max(scaled_map.pos[1], maxOffsetMovingUp))
         scaled_map.pos = (x, y)
-           
+      
+# this class is for the loading screen      
+class loading_surface:
+    s = pygame.Surface(screen_size())
+    message = ""
+    current_step = 0
+    steps = len(scaled_map.zoom_steps)
+    progress = 0
+    big_font = pygame.font.SysFont("Century Gothic", 60, True)
+    small_font = pygame.font.SysFont("Century Gothic", 25, True)
+    loading_text = big_font.render("LOADING...", True, (0,0,0))
+    
+    # function to update and show the loading screen
+    def update(target: pygame.Surface, message=None, progressbar=False):
+        loading_surface.s.fill((234,227,204))
+        loading_surface.s.blit(loading_surface.loading_text, ((screen_size()[0] - loading_surface.loading_text.get_width())//2, 200))
+        if progressbar:
+            loading_surface.progress = int(loading_surface.current_step/loading_surface.steps*100)
+            start_x = (screen_size()[0] - 40*loading_surface.steps)//2
+            for i in range(len(scaled_map.zoom_steps)):
+                if i < loading_surface.current_step: pygame.draw.rect(loading_surface.s, (0,255,0), (start_x+40*i, 300, 40, 15))
+                else: pygame.draw.rect(loading_surface.s, (255,0,0), (start_x+40*i, 300, 40, 15))
+        if message is None: message = "Precalculating surfaces... [ "+str(loading_surface.current_step)+"/"+str(loading_surface.steps)+" - ( "+str(loading_surface.progress)+"% ) ]"
+        text = loading_surface.small_font.render(message, True, (0,0,0))
+        loading_surface.s.blit(text, ((screen_size()[0] - text.get_width())//2, 350))
+        target.blit(loading_surface.s, (0,0))
+
 # store some surfaces in a tupel to loop through them later
 all = (main,stats,controll,minimap)

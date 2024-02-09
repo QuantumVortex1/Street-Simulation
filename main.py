@@ -1,7 +1,6 @@
 import pygame
 import event_handler
 from map_handler import map
-#import pathfinder as path
 
 # Initialise the pygame modules
 pygame.init()
@@ -10,7 +9,7 @@ pygame.init()
 ####### Load the map you want to load ########
 ####### Maximal map size: 200 x 200 px #######
 ######### The map has to be a square. ########
-map.load("maps/map_big.png")
+map.load("maps/bad_mergentheim.png")
 ##############################################
 
 # Set up the Window
@@ -24,15 +23,16 @@ import surface_handler as surf
 
 # set up the surfaces
 surf.init()
-surf.clear()
-
 
 # read the map
+surf.loading_surface.update(screen, "Loading map")
 map.read_image()
 map.blit_map_to(surf.original_map.s)
 # blit the tiles for the first time
-surf.scaled_map.load_cache()
+surf.loading_surface.update(screen, progressbar=True)
+surf.scaled_map.load_cache(screen)
 surf.scaled_map.init()
+surf.loading_surface.update(screen, "Almost there")
 # initialise the minimap
 surf.minimap.init()
 
