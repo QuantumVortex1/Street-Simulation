@@ -108,6 +108,7 @@ class scaled_map:
             threads.append(thread)
         for thread in threads:
             thread.join()
+    # the process done within the threads
     def cache_thread_process(image, i, progress_surface):
         size = map.width*i
         scaled_image = pygame.transform.smoothscale(image.copy(), (size,size))
@@ -116,7 +117,6 @@ class scaled_map:
         loading_surface.current_step += 1
         pygame.event.get()
         loading_surface.update(progress_surface, progressbar=True)
-        pygame.display.flip()
         
     # function to adjust the size of the surface and blitting the tiles for the first time 
     # to prevent a empty surface on start
@@ -168,7 +168,7 @@ class loading_surface:
     loading_text = big_font.render("LOADING...", True, (0,0,0))
     
     # function to update and show the loading screen
-    def update(target: pygame.Surface, message=None, progressbar=False):
+    def update(target: pygame.Surface, message="", progressbar=False):
         loading_surface.s.fill((234,227,204))
         loading_surface.s.blit(loading_surface.loading_text, ((screen_size()[0] - loading_surface.loading_text.get_width())//2, 200))
         if progressbar:
@@ -177,10 +177,11 @@ class loading_surface:
             for i in range(len(scaled_map.zoom_steps)):
                 if i < loading_surface.current_step: pygame.draw.rect(loading_surface.s, (0,255,0), (start_x+40*i, 300, 40, 15))
                 else: pygame.draw.rect(loading_surface.s, (255,0,0), (start_x+40*i, 300, 40, 15))
-        if message is None: message = "Precalculating surfaces... [ "+str(loading_surface.current_step)+"/"+str(loading_surface.steps)+" - ( "+str(loading_surface.progress)+"% ) ]"
+        if message == "": message = "Precalculating surfaces... [ "+str(loading_surface.current_step)+"/"+str(loading_surface.steps)+" - ( "+str(loading_surface.progress)+"% ) ]"
         text = loading_surface.small_font.render(message, True, (0,0,0))
         loading_surface.s.blit(text, ((screen_size()[0] - text.get_width())//2, 350))
         target.blit(loading_surface.s, (0,0))
+        pygame.display.flip()
 
 # store some surfaces in a tupel to loop through them later
 all = (main,stats,controll,minimap)

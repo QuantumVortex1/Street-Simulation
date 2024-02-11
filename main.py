@@ -19,6 +19,7 @@ sw,sh = screen.get_size()
 
 # had to move this import as that file needs an open window
 import surface_handler as surf
+from vehicles import car
 
 
 # set up the surfaces
@@ -31,10 +32,15 @@ map.blit_map_to(surf.original_map.s)
 # blit the tiles for the first time
 surf.loading_surface.update(screen, progressbar=True)
 surf.scaled_map.load_cache(screen)
+surf.loading_surface.update(screen, "Initialising the map")
 surf.scaled_map.init()
-surf.loading_surface.update(screen, "Almost there")
 # initialise the minimap
 surf.minimap.init()
+
+
+surf.loading_surface.update(screen, "Loading cars")
+# generate a car for every tenth field
+car.generate(50)
 
 # main loop
 while True:
@@ -49,6 +55,7 @@ while True:
     
     # update and blit stuff of the main map and the minimap
     surf.main.update_map()
+    car.update_all(screen)
     surf.minimap.update()
     # blith the other surfaces
     for s in range(4): screen.blit(surf.all[s].s, surf.all[s].pos)
