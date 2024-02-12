@@ -4,8 +4,8 @@ This file handles the vehicles, including how they drive, where they want to go,
 from map_handler import map
 from random import choice
 import pathfinder as path
-from tiles import size as ts, width as tw, height as th
-from surface_handler import screen_size, scaled_map
+from tiles import width as tw
+from surface_handler import screen_size, scaled_map, minimap
 import pygame
 from time import time
 from os import listdir
@@ -101,7 +101,8 @@ class car:
     
     # find a new goal for the car
     def new_goal(self): 
-        self.goal = choice(list(map.street_positions))
+        while self.goal == self.current_tile:
+            self.goal = choice(list(map.street_positions))
         self.path = path.find(self.current_tile, self.goal)
     
     # update the position
@@ -109,9 +110,12 @@ class car:
         if len(self.steps_on_tile) == 0:
             self.find_direction_based_on_next_tile()
             self.current_tile = self.path.pop(0)
+            if self.current_tile == self.goal: 
+                self.new_goal()
+                self.path.pop(0)
             self.find_steps_on_tile()
             
-            if self.current_tile == self.goal: self.new_goal()
+            
 
         else: self.find_direction_based_on_positions_on_tile()
         move = self.steps_on_tile.pop(0)  
@@ -132,6 +136,15 @@ class car:
         if -50 < screen_x < screen_size()[0] + 50 and -50 < screen_y < screen_size()[1] + 50:
             pygame.draw.rect(target, (255,0,0), (screen_x,screen_y,scaled_map.zoom,scaled_map.zoom))
         """
+        
+    # blit the positions of the cars to the minimap
+    def blit_on_minimap():
+        r = max(1, int((minimap.s.get_width()/map.width)/2))
+        for v in vehicles:
+            px = int(minimap.s.get_width()*(v.current_tile[0]/map.width) + v.position_on_tile[0]/tw*(minimap.s.get_width()/map.width))
+            py = int(minimap.s.get_height()*(v.current_tile[1]/map.height)+ v.position_on_tile[1]/tw*(minimap.s.get_height()/map.height))
+            #minimap.s.set_at((px,py), (255,0,0))
+            pygame.draw.circle(minimap.s, (255,0,0), (px,py), r, 1)
 
 # the list of all cars on the map
 vehicles:list[car] = []

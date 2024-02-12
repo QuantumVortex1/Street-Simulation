@@ -40,7 +40,7 @@ surf.minimap.init()
 
 surf.loading_surface.update(screen, "Loading cars")
 # generate a car for every tenth field
-car.generate(50)
+car.generate(150)
 
 # main loop
 while True:
@@ -57,6 +57,7 @@ while True:
     surf.main.update_map()
     car.update_all(screen)
     surf.minimap.update()
+    car.blit_on_minimap()
     # blith the other surfaces
     for s in range(4): screen.blit(surf.all[s].s, surf.all[s].pos)
     
