@@ -2,7 +2,7 @@
 
 ## Fachkompetenz
 
-### Die Studierenden kennen deíe Grundelemente der prozenduralen Programmierung.
+### Die Studierenden kennen die Grundelemente der prozenduralen Programmierung.
 Chiara: 
 
 ![image](https://github.com/QuantumVortex1/Street-Simulation/assets/152853785/dc919607-4829-4770-b1a5-6c60b769b4f9)
