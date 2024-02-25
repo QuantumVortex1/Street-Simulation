@@ -104,6 +104,7 @@ Wir haben uns vor Allem mündlich abgesprochen, waren aber auch digital immer f�
 ![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/301587a2-9c70-4de4-8220-25e13d9c040c)
 ![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/1430f4a1-0a8a-4f99-b14f-0e23fafa7d96)
 ![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/802cb78b-7fc7-4a63-a111-9ca309a1fac6)
+![Elyesa hilft Jonas](https://github.com/QuantumVortex1/Street-Simulation/assets/108876804/7be55709-9ecd-401b-851d-7a226450dd01)
 
 
 ### 3.2 Sie können existierenden Code analysieren und beurteilen.
