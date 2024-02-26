@@ -48,7 +48,8 @@ Darüber hinaus habt ihr die Git-API verwendet, um mit dem Repository zu interag
 
 ### 3.1 Erläutern und Begründen der Software (5 Punkte)
 Hamidreza hat euch die Spelling-Funktion erklärt, die er verwendet hat, sowie die Funktionsweise und Bibliotheken, die zum Einsatz kamen, um das Programm zu beschleunigen. Moritz hat den ersten Commit zum Programm gemacht und euch erklärt, wie ihr Zugriff auf die API erhalten könnt, damit alle am Projekt arbeiten können. Zusätzlich hat Saskia Hamidreza und Moritz beigebracht, wie ihr Copilot installieren und effizient nutzen könnt.
-![Bild](alet.PNG)
+![alet](https://github.com/QuantumVortex1/Street-Simulation/assets/108876804/72536ce3-8d60-4d97-8b70-bb99a82be98a)
+
 
 ### 3.2 Analyse und Beurteilung von existierendem Code (5 Punkte)
 In ihrem Peer-Review mit (@Elyesa, @Jonas, @Chiara,Street-Simulation) habt Ihr euch mit deren Code auseinader gesetzt und man sieht an den Bildern das Ihr euch auch über Discord verständigt habt falls es fragen gab, daran sieht man das Ihr euch wirklich mühe gegeben habt und nicht oberflächlich ward.
