@@ -102,9 +102,8 @@ Es war vor allem am Anfang herausfordernd, am Projekt zu arbeiten ohne den/die a
 ### 3.1 Die Studierenden können ihre Software erläutern und begründen.
 Wir haben uns vor Allem mündlich abgesprochen, waren aber auch digital immer füreinander da wenns drauf ankam  
 ![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/301587a2-9c70-4de4-8220-25e13d9c040c)
-![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/1430f4a1-0a8a-4f99-b14f-0e23fafa7d96)
-![Jonas hilft Elyesa](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/802cb78b-7fc7-4a63-a111-9ca309a1fac6)
-![Elyesa hilft Jonas](https://github.com/QuantumVortex1/Street-Simulation/assets/108876804/7be55709-9ecd-401b-851d-7a226450dd01)
+![Elyesa hilft Chiara](https://github.com/QuantumVortex1/Street-Simulation/assets/152855101/1df5d979-7649-4ebe-9df6-3b55f6322cee)
+
 
 
 ### 3.2 Sie können existierenden Code analysieren und beurteilen.
